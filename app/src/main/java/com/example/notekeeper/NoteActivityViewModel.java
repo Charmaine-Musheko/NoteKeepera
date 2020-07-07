@@ -1,8 +1,8 @@
 package com.example.notekeeper;
 
-import android.arch.lifecycle.ViewModel;
 import android.os.Bundle;
 
+import androidx.lifecycle.ViewModel;
 public class NoteActivityViewModel extends ViewModel {
     public static final String ORIGINAL_NOTE_COURSE_ID ="com.jwh.notekeeper.ORIGINAL_NOTE_COURSE_ID";
     public static final String ORIGINAL_NOTE_TEXT ="com.jwh.notekeeper.ORIGINAL_NOTE_TEXT";

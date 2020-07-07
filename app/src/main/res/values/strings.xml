@@ -30,4 +30,35 @@
     <string name="menu_import">Import</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_communication">Communication</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">General</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="pref_title_email_address">Email Address</string>
+    <string name="pref_title_display_name">Display name</string>
+    <string name="Pref_tile_favorite_social">Favorite Social Network</string>
+    <string-array name="pref_entries_favorite_social">
+        <item>Google+</item>
+        <item>Facebook</item>
+        <item>Twitter</item>
+    </string-array>
+    <string-array name="pref_values_favorite_social">
+        <item>http://plus.google.com</item>
+        <item>http://facebook.com</item>
+        <item>http://twitter.com</item>
+    </string-array>
+    <string name="pref_default_favorite_social">http://plus.google.com></string>
+    <bool name="pref_display_name">false</bool>
 </resources>
