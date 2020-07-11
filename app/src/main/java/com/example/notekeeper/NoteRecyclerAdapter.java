@@ -35,9 +35,8 @@ public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapte
         holder.mTextCourse.setText(note.getCourse().getTitle());
         holder.mTextTitle.setText(note.getTitle());
         holder.mCurrentPosition = position;
-
-
     }
+
 
     @Override
     public int getItemCount() {

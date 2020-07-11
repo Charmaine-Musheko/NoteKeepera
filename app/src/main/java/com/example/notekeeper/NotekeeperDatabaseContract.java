@@ -10,9 +10,9 @@ public final class NotekeeperDatabaseContract {
         public static final String COLUMN_COURSE_TITLE = "course_title";
         //COURSE_TABLE course_info (course_id, course_title)
         public static final String SQL_CREATE_TABLE =
-                "CREATE TABLE " + TABLE_NAME + " (" + "INTEGER PRIMARY KEY" +
-                COLUMN_COURSE_ID + "TEXT UNIQUE NOT NULL, " +
-                COLUMN_COURSE_TITLE + "TEXT NOT NULL)";
+                "CREATE TABLE " + TABLE_NAME + " (" + " INTEGER PRIMARY KEY, " +
+                COLUMN_COURSE_ID + " TEXT UNIQUE NOT NULL, " +
+                COLUMN_COURSE_TITLE + " TEXT NOT NULL)";
     }
     public static final class NoteInfoEntry implements BaseColumns {
         public  static final String TABLE_NAME = "note_info";
@@ -22,9 +22,9 @@ public final class NotekeeperDatabaseContract {
 
         //COURSE_TABLE course_info (course_id, course_title)
         public static final String SQL_CREATE_TABLE =
-                "CREATE TABLE " + TABLE_NAME + " (" + "INTEGER PRIMARY KEY" +
-                        COLUMN_NOTE_TITLE + "TEXT NOT NULL, " +COLUMN_NOTE_TEXT+ "TEXT, " +
-                        COLUMN_COURSE_ID+ "TEXT NOT NULL)";
+                "CREATE TABLE " + TABLE_NAME + " (" + " INTEGER PRIMARY KEY, " +
+                        COLUMN_NOTE_TITLE + " TEXT NOT NULL, " + COLUMN_NOTE_TEXT + " TEXT, " +
+                        COLUMN_COURSE_ID + " TEXT NOT NULL)";
 
     }
 

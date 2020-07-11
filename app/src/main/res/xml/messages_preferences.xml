@@ -2,13 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditTextPreference
-        android:defaultValue="@bool/pref_default_email_address"
+        android:defaultValue="true"
         app:key="user_display_name"
         app:title="@string/pref_title_display_name"
         app:useSimpleSummaryProvider="true" />
 
     <EditTextPreference
-        android:defaultValue="@bool/pref_default_email_address"
+        android:defaultValue="true"
         android:key="user_email_address"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -17,7 +17,7 @@
         android:key="user_favorite_social"
         app:defaultValue="true"
         app:entries="@array/pref_entries_favorite_social"
-        app:entryValues="@array/pref_values_favorite_social"
+        app:entryValues="@string/Pref_tile_favorite_social"
         app:title="@string/Pref_tile_favorite_social"
         app:useSimpleSummaryProvider="true" />
 
