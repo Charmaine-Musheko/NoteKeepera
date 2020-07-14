@@ -105,9 +105,11 @@ public class SettingsActivity extends AppCompatActivity implements
 
         }
 
-        private void onBindPreferences(Preference user_display_name) {
+        protected void onBindPreferences(Preference messages_preferences) {
 
         }
+
+
     }
 
     public static class SyncFragment extends PreferenceFragmentCompat {

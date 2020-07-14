@@ -21,6 +21,11 @@ public final class NoteInfo implements Parcelable {
 
     }
 
+    public NoteInfo(int id, CourseInfo noteCourse, String noteTitle, String noteText) {
+
+    }
+
+
     public CourseInfo getCourse() {
         return mCourse;
     }
@@ -94,4 +99,8 @@ public final class NoteInfo implements Parcelable {
                     return new NoteInfo[size];
                 }
             };
+
+    public int getId() {
+        return 0;
+    }
 }
