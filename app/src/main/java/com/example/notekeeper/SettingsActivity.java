@@ -1,13 +1,16 @@
 package com.example.notekeeper;
 
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroup;
 
 public class SettingsActivity extends AppCompatActivity implements
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback{
@@ -104,7 +107,7 @@ public class SettingsActivity extends AppCompatActivity implements
             onBindPreferences(findPreference("user_favorite_social"));
 
         }
-
+        
         protected void onBindPreferences(Preference messages_preferences) {
 
         }

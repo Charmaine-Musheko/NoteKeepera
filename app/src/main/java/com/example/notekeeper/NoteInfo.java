@@ -1,12 +1,22 @@
 package com.example.notekeeper;
-
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.notekeeper.CourseInfo;
+
 
 public final class NoteInfo implements Parcelable {
     private CourseInfo mCourse;
     private String mTitle;
     private String mText;
+    private int mId;
+
+    public NoteInfo(int id, CourseInfo course, String title, String text) {
+        mId = id;
+        mCourse = course;
+        mTitle = title;
+        mText = text;
+    }
 
     public NoteInfo(CourseInfo course, String title, String text) {
         mCourse = course;
@@ -14,17 +24,15 @@ public final class NoteInfo implements Parcelable {
         mText = text;
     }
 
-    private NoteInfo(Parcel parcel) {
-        mCourse = parcel.readParcelable(CourseInfo.class.getClassLoader());
-        mTitle = parcel.readString();
-        mText = parcel.readString();
-
+    private NoteInfo(Parcel source) {
+        mCourse = source.readParcelable(CourseInfo.class.getClassLoader());
+        mTitle = source.readString();
+        mText = source.readString();
     }
 
-    public NoteInfo(int id, CourseInfo noteCourse, String noteTitle, String noteText) {
-
+    public int getId() {
+        return mId;
     }
-
 
     public CourseInfo getCourse() {
         return mCourse;
@@ -80,18 +88,18 @@ public final class NoteInfo implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(mCourse, 0);
-        parcel.writeString(mTitle);
-        parcel.writeString(mText);
-
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mCourse, 0);
+        dest.writeString(mTitle);
+        dest.writeString(mText);
     }
-    public static final Parcelable.Creator<NoteInfo> CREATOR =
+
+    public final static Parcelable.Creator<NoteInfo> CREATOR =
             new Parcelable.Creator<NoteInfo>() {
 
                 @Override
-                public NoteInfo createFromParcel(Parcel parcel) {
-                    return new NoteInfo(parcel);
+                public NoteInfo createFromParcel(Parcel source) {
+                    return new NoteInfo(source);
                 }
 
                 @Override
@@ -99,8 +107,4 @@ public final class NoteInfo implements Parcelable {
                     return new NoteInfo[size];
                 }
             };
-
-    public int getId() {
-        return 0;
-    }
 }
