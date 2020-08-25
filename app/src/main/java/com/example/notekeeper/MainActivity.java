@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       // enableStrictMode();
+        enableStrictMode();
 
         mDbOpenHelper = new NoteKeeperOpenHelper(this);
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         initializeDisplayContent();
     }
 
-    /*private void enableStrictMode() {
+    private void enableStrictMode() {
         if(BuildConfig.DEBUG){
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .detectAll()
@@ -87,19 +87,28 @@ public class MainActivity extends AppCompatActivity
                     .build();
             StrictMode.setThreadPolicy(policy);
         }
-    }*/
+    }
 
     @Override
     protected void onDestroy() {
         mDbOpenHelper.close();
         super.onDestroy();
     }
+    /*Passing Data between AsyncTask Mehthods
+    * AsyncTask task = new AsyncTask<Type1, Void, Type3>(){
+    * Type3 doInBackground(Type1.. Params){
+    * Type3 result = // result of work
+    * return result;
+    * }
+    * void onPostExecute(Type3 t3) { }
+    * };
+    * task. execute*/
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        getLoaderManager().restartLoader(LOADER_NOTES, null, (android.app.LoaderManager.LoaderCallbacks<Cursor>) this);
+        getSupportLoaderManager().restartLoader(LOADER_NOTES, null,  this);
 
         updateNavHeader();
     }
@@ -236,44 +245,42 @@ public class MainActivity extends AppCompatActivity
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader = null;
-        if(id == LOADER_NOTES) {
-            loader = new CursorLoader(this) {
-                @Override
-                public Cursor loadInBackground() {
-                    SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+        if (id == LOADER_NOTES) {
+                    // SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
                     final String[] noteColumns = {
-                            NoteInfoEntry.getQName(NoteInfoEntry._ID),
-                            NoteInfoEntry.COLUMN_NOTE_TITLE,
-                            NotekeeperDatabaseContract.CourseInfoEntry.COLUMN_COURSE_TITLE
+                            NoteKeeperProviderContract.Notes._ID,
+                            NoteKeeperProviderContract.Notes.COLUMN_NOTE_TITLE,
+                            NoteKeeperProviderContract.Notes.COLUMN_COURSE_TITLE
                     };
 
-                    final String noteOrderBy = NotekeeperDatabaseContract.CourseInfoEntry.COLUMN_COURSE_TITLE +
-                            "," + NoteInfoEntry.COLUMN_NOTE_TITLE;
+                    final String noteOrderBy = NoteKeeperProviderContract.Notes.COLUMN_COURSE_TITLE +
+                            "," + NoteKeeperProviderContract.Notes.COLUMN_NOTE_TITLE;
+                    loader = new CursorLoader(this, NoteKeeperProviderContract.Notes.CONTENT_EXPANDED_URI, noteColumns, null, null, noteOrderBy);
 
                     // note_info JOIN course_info ON note_info.course_id = course_info.course_id
-                    String tablesWithJoin = NoteInfoEntry.TABLE_NAME + " JOIN " +
+                   /* String tablesWithJoin = NoteInfoEntry.TABLE_NAME + " JOIN " +
                             NotekeeperDatabaseContract.CourseInfoEntry.TABLE_NAME + " ON " +
                             NoteInfoEntry.getQName(NoteInfoEntry.COLUMN_COURSE_ID) + " = " +
                             NotekeeperDatabaseContract.CourseInfoEntry.getQName( NotekeeperDatabaseContract.CourseInfoEntry.COLUMN_COURSE_ID);
 
                     return db.query(tablesWithJoin, noteColumns,
-                            null, null, null, null, noteOrderBy);
+                            null, null, null, null, noteOrderBy);*/
                 }
-            };
-        }
-        return loader;
+
+                    return loader;
     }
 
     @Override
     public void onLoadFinished(Loader loader, Cursor data) {
-        if(loader.getId() == LOADER_NOTES)  {
+        if(loader.getId() == LOADER_NOTES);
+        {
             mNoteRecyclerAdapter.changeCursor(data);
         }
     }
 
     @Override
     public void onLoaderReset(Loader loader) {
-        if(loader.getId() == LOADER_NOTES)  {
+        if(loader.getId() == LOADER_NOTES);  {
             mNoteRecyclerAdapter.changeCursor(null);
         }
 

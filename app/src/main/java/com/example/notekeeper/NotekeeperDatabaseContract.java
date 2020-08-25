@@ -13,7 +13,7 @@ public final class NotekeeperDatabaseContract {
         public static final String INDEX1 = TABLE_NAME + "_index1";
         public static final String SQL_CREATE_INDEX1 =
                 "CREATE INDEX " + INDEX1 + " ON " + TABLE_NAME +
-                        "(" + COLUMN_COURSE_TITLE + ")";
+                        " ( " + COLUMN_COURSE_TITLE + " ) ";
 
         public static final String getQName(String columnName) {
             return TABLE_NAME + "." + columnName;
@@ -22,7 +22,7 @@ public final class NotekeeperDatabaseContract {
                 "CREATE TABLE " + TABLE_NAME + " (" +
                         _ID  + " INTEGER PRIMARY KEY, " +
                 COLUMN_COURSE_ID + " TEXT UNIQUE NOT NULL, " +
-                COLUMN_COURSE_TITLE + " TEXT NOT NULL)";
+                COLUMN_COURSE_TITLE + " TEXT NOT NULL )";
     }
     public static final class NoteInfoEntry implements BaseColumns {
         public  static final String TABLE_NAME = "note_info";
@@ -32,7 +32,7 @@ public final class NotekeeperDatabaseContract {
         public static final String INDEX1 = TABLE_NAME + "_index1";
         public static final String SQL_CREATE_INDEX1 =
                 "CREATE INDEX " + INDEX1 + " ON " + TABLE_NAME +
-                        "(" + COLUMN_NOTE_TITLE + ")";
+                        " ( " + COLUMN_NOTE_TITLE + " ) ";
 
 
         public static final String getQName(String columnName) {
@@ -42,11 +42,11 @@ public final class NotekeeperDatabaseContract {
 
         //COURSE_TABLE course_info (course_id, course_title)
         public static final String SQL_CREATE_TABLE =
-                "CREATE TABLE " + TABLE_NAME + " (" +  _ID  +
+                "CREATE TABLE " + TABLE_NAME + " ( " +  _ID  +
                         " INTEGER PRIMARY KEY, " +
                         COLUMN_NOTE_TITLE + " TEXT NOT NULL, " +
                         COLUMN_NOTE_TEXT + " TEXT, " +
-                        COLUMN_COURSE_ID + " TEXT NOT NULL)";
+                        COLUMN_COURSE_ID + " TEXT NOT NULL ) ";
 
     }
 
