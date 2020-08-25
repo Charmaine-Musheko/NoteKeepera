@@ -59,6 +59,7 @@ import java.util.List;
         private SimpleCursorAdapter mAdapterCourses;
         private boolean mCoursesQueryFinished;
         private boolean mNotesQueryFinished;
+        private Uri mNoteUri;
 
         @Override
         protected void onDestroy() {
@@ -279,7 +280,8 @@ import java.util.List;
             values.put(NoteInfoEntry.COLUMN_COURSE_ID, "");
             values.put(NoteInfoEntry.COLUMN_NOTE_TITLE, "");
             values.put(NoteInfoEntry.COLUMN_NOTE_TEXT, "");
-            getContentResolver().insert(NoteKeeperProviderContract.Notes.CONTENT_URI, values);
+            mNoteUri = getContentResolver().insert(NoteKeeperProviderContract.Notes.CONTENT_URI, values);
+
 
            //!! task.execute(values);
         //    DataManager dm = DataManager.getInstance();
