@@ -14,7 +14,7 @@ public final class NoteKeeperProviderContract {
     public static final String AUTHORITY = "com.example.notekeeper.provider";
     private static final Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
     protected interface CourseIdColumns {
-        public static final String COLUMN_COURSES_ID = "course_id";
+        public static final String COLUMN_COURSE_ID = "course_id";
     }
     protected interface CourseColumns{
         public static final String COLUMN_COURSE_TITLE = "course_title";

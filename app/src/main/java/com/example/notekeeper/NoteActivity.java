@@ -1,5 +1,6 @@
 package com.example.notekeeper;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -117,7 +118,7 @@ import java.util.List;
         private void loadNoteData() {
             SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
 
-            String selection = NoteInfoEntry._ID + " = ?";
+            String selection = NoteInfoEntry._ID + " = ? ";
             String[] selectionArgs = {Integer.toString(mNoteId)};
 
             String[] noteColumns = {
@@ -363,7 +364,7 @@ import java.util.List;
             Uri uri = NoteKeeperProviderContract.Courses.CONTENT_URI;
             String[] courseColumns = {
                     NoteKeeperProviderContract.Courses.COLUMN_COURSE_TITLE,
-                    NoteKeeperProviderContract.Courses.COLUMN_COURSES_ID,
+                    NoteKeeperProviderContract.Courses.COLUMN_COURSE_ID,
                     NoteKeeperProviderContract.Courses._ID
             };
             return new CursorLoader(this, uri, courseColumns, null, null, NoteKeeperProviderContract.Courses.COLUMN_COURSE_TITLE);
@@ -371,25 +372,13 @@ import java.util.List;
 
         private CursorLoader createLoaderNotes() {
             mNotesQueryFinished = false;
-
-            return new CursorLoader(this) {
-                @Override
-                public Cursor loadInBackground() {
-                    SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
-
-                    String selection = NoteInfoEntry._ID + " = ?";
-                    String[] selectionArgs = {Integer.toString(mNoteId)};
-
                     String[] noteColumns = {
-                            NoteInfoEntry.COLUMN_COURSE_ID,
-                            NoteInfoEntry.COLUMN_NOTE_TITLE,
-                            NoteInfoEntry.COLUMN_NOTE_TEXT
+                            NoteKeeperProviderContract.Notes.COLUMN_COURSE_ID,
+                            NoteKeeperProviderContract.Notes.COLUMN_NOTE_TITLE,
+                            NoteKeeperProviderContract.Notes.COLUMN_NOTE_TEXT
                     };
-                    return db.query(NoteInfoEntry.TABLE_NAME, noteColumns,
-                            selection, selectionArgs, null, null, null);
-
-                }
-            };
+             mNoteUri = ContentUris.withAppendedId(NoteKeeperProviderContract.Notes.CONTENT_URI, mNoteId);
+        return new CursorLoader(this, mNoteUri, noteColumns, null, null, null);
         }
 
         @Override
