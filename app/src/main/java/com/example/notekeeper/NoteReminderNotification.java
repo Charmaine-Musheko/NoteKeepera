@@ -80,7 +80,7 @@ public class NoteReminderNotification {
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(noteText)
                         .setBigContentTitle(noteTitle)
-                        .setSummaryText("Review note"))
+                        .setSummaryText("noteId"))
 
                 // If this notification relates to a past or upcoming event, you
                 // should set the relevant time information using the setWhen
@@ -128,7 +128,7 @@ public class NoteReminderNotification {
 
     /**
      * Cancels any notifications of this type previously shown using
-     * {@link #notify(Context, String, int)}.
+     * {@link #//notify(Context, String, int)}.
      */
     @TargetApi(Build.VERSION_CODES.ECLAIR)
     public static void cancel(final Context context) {
