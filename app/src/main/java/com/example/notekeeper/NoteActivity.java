@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
@@ -19,15 +18,12 @@ import android.widget.Spinner;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
 import com.example.notekeeper.NotekeeperDatabaseContract.CourseInfoEntry;
 import com.example.notekeeper.NotekeeperDatabaseContract.NoteInfoEntry;
-
-import java.util.List;
 
 
 
@@ -253,6 +249,7 @@ import java.util.List;
 
         private void readDisplayStateValues() {
             Intent intent = getIntent();
+
             mNoteId = intent.getIntExtra(NOTE_ID, ID_NOT_SET);
             mIsNewNote = mNoteId == ID_NOT_SET;
             if(mIsNewNote) {
@@ -314,8 +311,16 @@ import java.util.List;
             } else if(id == R.id.action_next) {
                 moveNext();
             }
+            else if (id == R.id.action_set_reminder) {
+                showReminderNotification();
+            }
 
             return super.onOptionsItemSelected(item);
+        }
+
+        private void showReminderNotification() {
+            NoteReminderNotification.notify(this, "This is dummy text", "Work", 0);
+            
         }
 
         @Override
@@ -392,16 +397,18 @@ import java.util.List;
             }
         }
 
-        private void loadFinishedNotes(Cursor data) {
-            mNoteCursor = data;
-            mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
-            mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
-            mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
+        private void loadFinishedNotes(@Nullable Cursor data) {
+            if (data != null) {
+                mNoteCursor = data;
+                mCourseIdPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_COURSE_ID);
+                mNoteTitlePos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TITLE);
+                mNoteTextPos = mNoteCursor.getColumnIndex(NoteInfoEntry.COLUMN_NOTE_TEXT);
 
-            mNoteCursor.moveToFirst();
+                mNoteCursor.moveToFirst();
 
-            mNotesQueryFinished = true;
-            displayNoteWhenQueriesFinished();
+                mNotesQueryFinished = true;
+                displayNoteWhenQueriesFinished();
+            }
 
         }
 

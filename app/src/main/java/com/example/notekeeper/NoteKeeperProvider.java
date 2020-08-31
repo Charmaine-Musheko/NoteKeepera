@@ -30,7 +30,7 @@ public class NoteKeeperProvider extends ContentProvider {
         sUriMatcher.addURI(AUTHORITY, NoteKeeperProviderContract.Courses.PATH, COURSES);
         sUriMatcher.addURI(AUTHORITY, NoteKeeperProviderContract.Notes.PATH, NOTES);
         sUriMatcher.addURI(AUTHORITY, NoteKeeperProviderContract.Notes.PATH_EXPANDED, NOTES_EXPANDED);
-        sUriMatcher.addURI(AUTHORITY, NoteKeeperProviderContract.Notes.PATH +"/0", NOTES_ROW);
+        sUriMatcher.addURI(AUTHORITY, NoteKeeperProviderContract.Notes.PATH +"/#", NOTES_ROW);
     }
 
     public NoteKeeperProvider() {
@@ -101,6 +101,7 @@ public class NoteKeeperProvider extends ContentProvider {
         Cursor cursor = null;
         SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
 
+        // REGEX EXPRESSIONS
         int uriMatch = sUriMatcher.match(uri);
         switch(uriMatch) {
             case COURSES:
