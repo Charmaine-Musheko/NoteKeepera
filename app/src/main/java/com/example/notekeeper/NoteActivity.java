@@ -319,6 +319,7 @@ import com.example.notekeeper.NotekeeperDatabaseContract.NoteInfoEntry;
         }
 
         private void showReminderNotification() {
+            String noteText = mTextNoteText.getText().toString();
             NoteReminderNotification.notify(this, "This is dummy text", "Work", 0);
             
         }
