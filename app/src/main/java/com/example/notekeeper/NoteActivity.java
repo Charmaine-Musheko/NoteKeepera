@@ -11,9 +11,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import androidx.loader.content.Loader;
 
 import com.example.notekeeper.NotekeeperDatabaseContract.CourseInfoEntry;
 import com.example.notekeeper.NotekeeperDatabaseContract.NoteInfoEntry;
+import com.google.android.material.snackbar.Snackbar;
 
 
 
@@ -256,36 +259,72 @@ import com.example.notekeeper.NotekeeperDatabaseContract.NoteInfoEntry;
                 createNewNote();
             }
 
-            Log.i(TAG, "mNoteId: " + mNoteId);
+          //  Log.i(TAG, "mNoteId: " + mNoteId);
 //        mNote = DataManager.getInstance().getNotes().get(mNoteId);
 
         }
 
         private void createNewNote() {
-            /*AsyncTask<ContentValues, Void, Uri> task = new AsyncTask<ContentValues, Void, Uri>() {
+            AsyncTask<ContentValues, Integer, Uri> task = new AsyncTask<ContentValues, Integer, Uri>() {
+                private ProgressBar mProgressBar;
+
+                @Override
+                protected void onPreExecute() {
+                    mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    mProgressBar.setProgress(1);
+                }
+
                 @Override
                 protected Uri doInBackground(ContentValues... params) {
                     ContentValues insertValues = params[0];
-                    Uri rowUri = getContentResolver().insert(Notes.CONTENT_URI, insertValues);
+                    Uri rowUri = getContentResolver().insert(NoteKeeperProviderContract.Notes.CONTENT_URI, insertValues);
+                    simulateLongRunningWork(); // simulate slow database work
+                    publishProgress(2);
+
+                    simulateLongRunningWork(); // simulate slow work with date
+                    publishProgress(3);
+                    return rowUri;
+                }
+
+                @Override
+                protected void onProgressUpdate(Integer... values) {
+                    int progressValues = values[0];
+                    mProgressBar.setProgress(progressValues);
+                }
+
+                @Override
+                protected void onPostExecute(Uri uri){
+                    Log.d(TAG, "onPostExecute - thread:" + Thread.currentThread().getId());
+                    mNoteUri = uri;
+                    displaySnackbar(mNoteUri.toString());
+                    mProgressBar.setVisibility(View.GONE);
 
                 }
-                    @Override
-                    protected void onPostExecute(Uri uri) {
-                        super.onPostExecute(uri);
-                    }
-            };*/
+            };
+
             ContentValues values = new ContentValues();
             values.put(NoteInfoEntry.COLUMN_COURSE_ID, "");
             values.put(NoteInfoEntry.COLUMN_NOTE_TITLE, "");
             values.put(NoteInfoEntry.COLUMN_NOTE_TEXT, "");
-            mNoteUri = getContentResolver().insert(NoteKeeperProviderContract.Notes.CONTENT_URI, values);
-
-
-           //!! task.execute(values);
+            Log.d(TAG, "call to execute - thread:" + Thread.currentThread().getId());
+           mNoteUri = getContentResolver().insert(NoteKeeperProviderContract.Notes.CONTENT_URI, values);
+            task.execute(values);
         //    DataManager dm = DataManager.getInstance();
             //  mNoteId = dm.createNewNote();
         //mNote = dm.getNotes().get(mNoteId);
         }
+
+        private void simulateLongRunningWork() {
+
+        }
+
+        private void displaySnackbar(String message) {
+            View view = findViewById(R.id.spinner_courses);
+            Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
+                
+            }
+
 
         @Override
         public boolean onCreateOptionsMenu(Menu menu) {
